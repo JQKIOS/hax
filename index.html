@@ -6,11 +6,11 @@
     <title>JQK IOS - SHOP PREMIUM</title>
     <style>
         :root {
-            --bg-color: #0b0c10;
-            --card-bg: #1f2833;
-            --text-color: #c5a059; /* Màu vàng Gold sang trọng cho Shop */
-            --text-light: #ffffff;
-            --accent-green: #02f290;
+            --bg-color: #ffffff; /* Đổi nền chính thành màu trắng */
+            --card-bg: #f4f6f9;  /* Đổi nền thẻ sản phẩm thành màu xám trắng nhẹ */
+            --text-color: #b58933; /* Màu vàng Gold đậm hơn chút để nổi bật trên nền trắng */
+            --text-light: #1f2833; /* Đổi chữ chính thành màu tối để dễ đọc */
+            --accent-green: #01985a; /* Đổi màu trạng thái đậm hơn để nhìn rõ trên nền sáng */
             --btn-download: linear-gradient(135deg, #007bff, #00d2ff);
             --btn-key: linear-gradient(135deg, #ff007f, #ff7b00);
         }
@@ -35,7 +35,7 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         /* Tiêu đề chính dạng Shop */
@@ -49,14 +49,14 @@
             font-weight: 800;
             letter-spacing: 2px;
             margin: 0;
-            background: linear-gradient(to right, #fff, var(--text-color), #fff);
+            background: linear-gradient(to right, #1f2833, var(--text-color), #1f2833);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.1);
         }
 
         header p {
-            color: #888;
+            color: #666;
             margin-top: 5px;
             font-size: 0.95em;
         }
@@ -89,22 +89,22 @@
         /* Thẻ sản phẩm (Card Shop) */
         .product-card {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             border-radius: 16px;
             padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             position: relative;
             overflow: hidden;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(197, 160, 89, 0.3);
-            box-shadow: 0 15px 30px rgba(197, 160, 89, 0.1);
+            border-color: rgba(197, 160, 89, 0.4);
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.15);
         }
 
         /* Tên sản phẩm */
@@ -112,7 +112,7 @@
             font-size: 1.25em;
             font-weight: bold;
             margin: 0 0 10px 0;
-            color: var(--text-light);
+            color: #1f2833;
         }
 
         /* Nhãn trạng thái (Status tag) */
@@ -121,7 +121,7 @@
             font-size: 0.75em;
             padding: 3px 8px;
             border-radius: 5px;
-            background: rgba(2, 242, 144, 0.1);
+            background: rgba(1, 152, 90, 0.1);
             color: var(--accent-green);
             font-weight: bold;
             margin-bottom: 20px;
@@ -155,12 +155,12 @@
 
         .btn-download {
             background: var(--btn-download);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
         }
 
         .btn-key {
             background: var(--btn-key);
-            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.2);
         }
 
         /* Thông tin liên hệ phía dưới */
@@ -168,7 +168,7 @@
             text-align: center;
             margin-top: 40px;
             padding: 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(0,0,0,0.05);
             width: 100%;
             max-width: 600px;
         }
@@ -200,7 +200,6 @@
         <p>Hệ thống cung cấp Mod Game iOS chất lượng cao</p>
     </header>
 
-    <!-- ================= DANH MỤC: PUBG MOBILE ================= -->
     <div class="category-section">
         <div class="category-title">📂 HACK PUBG MOBILE</div>
         <div class="products-grid">
@@ -318,7 +317,6 @@
         </div>
     </div>
 
-    <!-- ================= DANH MỤC: LIÊN QUÂN ================= -->
     <div class="category-section">
         <div class="category-title">📂 HACK LIÊN QUÂN MOBILE</div>
         <div class="products-grid">
@@ -348,7 +346,6 @@
         </div>
     </div>
 
-    <!-- ================= DANH MỤC: CFL ================= -->
     <div class="category-section">
         <div class="category-title">📂 HACK CFL (CROSSFIRE LEGENDS)</div>
         <div class="products-grid">
@@ -389,7 +386,6 @@
         </div>
     </div>
 
-    <!-- ================= DANH MỤC: 8BALL POOL ================= -->
     <div class="category-section">
         <div class="category-title">📂 HACK 8BALL POOL</div>
         <div class="products-grid">
@@ -408,7 +404,6 @@
         </div>
     </div>
 
-    <!-- ================= DANH MỤC: ROBLOX ================= -->
     <div class="category-section">
         <div class="category-title">📂 HACK ROBLOX (DELTA)</div>
         <div class="products-grid">
@@ -427,7 +422,6 @@
         </div>
     </div>
     
-    <!-- ================= DANH MỤC: ZING SPEED ================= -->
     <div class="category-section">
         <div class="category-title">📂 HACK ZING SPEED MOBILE</div>
         <div class="products-grid">
@@ -446,7 +440,6 @@
         </div>
     </div>
 
-    <!-- ================= DANH MỤC: FREE FIRE ================= -->
     <div class="category-section">
         <div class="category-title">📂 HACK FREE FIRE</div>
         <div class="products-grid">
@@ -476,13 +469,11 @@
         </div>
     </div>
 
-    <!-- FOOTER SHOP -->
     <div class="footer-info">
         <p>💬 Mua Key VIP Liên Hệ Telegram: <a href="https://t.me/JQK_07" class="tele-link" target="_blank">@JQK_07</a></p>
         <p>☕ Ủng Hộ Admin: <span class="bank-info">8857266143 (BIDV)</span></p>
     </div>
 
-    <!-- HIỆU ỨNG TUYẾT RƠI TINH TẾ -->
     <script>
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
@@ -503,7 +494,7 @@
                 y: Math.random() * canvas.height,
                 r: Math.random() * 2 + 1,
                 speed: Math.random() * 0.5 + 0.3,
-                opacity: Math.random() * 0.5 + 0.2
+                opacity: Math.random() * 0.4 + 0.2
             });
         }
 
@@ -514,7 +505,8 @@
                 const f = flakes[i];
                 ctx.beginPath();
                 ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
-                ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
+                // Đổi thành màu xanh dương nhạt (rgba(0, 150, 255)) để tạo hiệu ứng tuyết/mưa bong bóng nổi bật trên nền trắng
+                ctx.fillStyle = `rgba(0, 123, 255, ${f.opacity})`;
                 ctx.fill();
             }
             moveSnow();
