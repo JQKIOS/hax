@@ -6,11 +6,11 @@
     <title>JQK IOS - SHOP PREMIUM</title>
     <style>
         :root {
-            --bg-color: #ffffff; /* Đổi nền chính thành màu trắng */
-            --card-bg: #f4f6f9;  /* Đổi nền thẻ sản phẩm thành màu xám trắng nhẹ */
-            --text-color: #b58933; /* Màu vàng Gold đậm hơn chút để nổi bật trên nền trắng */
-            --text-light: #1f2833; /* Đổi chữ chính thành màu tối để dễ đọc */
-            --accent-green: #01985a; /* Đổi màu trạng thái đậm hơn để nhìn rõ trên nền sáng */
+            --bg-color: #0b0c10; /* Giữ nền website màu đen tối như cũ */
+            --card-bg: #ffffff;  /* CHỈ ĐỔI NỀN KHUNG THÀNH MÀU TRẮNG */
+            --text-color: #c5a059; /* Màu vàng Gold sang trọng cho tiêu đề */
+            --text-light: #ffffff; /* Màu chữ ngoài nền tối */
+            --accent-green: #01985a; /* Màu trạng thái xanh đậm để nổi bật trên khung trắng */
             --btn-download: linear-gradient(135deg, #007bff, #00d2ff);
             --btn-key: linear-gradient(135deg, #ff007f, #ff7b00);
         }
@@ -35,7 +35,7 @@
             height: 100%;
             z-index: -1;
             pointer-events: none;
-            opacity: 0.5;
+            opacity: 0.6;
         }
 
         /* Tiêu đề chính dạng Shop */
@@ -49,14 +49,14 @@
             font-weight: 800;
             letter-spacing: 2px;
             margin: 0;
-            background: linear-gradient(to right, #1f2833, var(--text-color), #1f2833);
+            background: linear-gradient(to right, #fff, var(--text-color), #fff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(197, 160, 89, 0.1);
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
         }
 
         header p {
-            color: #666;
+            color: #888;
             margin-top: 5px;
             font-size: 0.95em;
         }
@@ -86,28 +86,28 @@
             gap: 20px;
         }
 
-        /* Thẻ sản phẩm (Card Shop) */
+        /* Thẻ sản phẩm (Card Shop màu trắng) */
         .product-card {
             background: var(--card-bg);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.08);
             border-radius: 16px;
             padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
             position: relative;
             overflow: hidden;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
-            border-color: rgba(197, 160, 89, 0.4);
-            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.15);
+            border-color: rgba(197, 160, 89, 0.5);
+            box-shadow: 0 15px 30px rgba(197, 160, 89, 0.2);
         }
 
-        /* Tên sản phẩm */
+        /* Tên sản phẩm đổi sang màu tối để nổi bật trên khung trắng */
         .product-name {
             font-size: 1.25em;
             font-weight: bold;
@@ -155,12 +155,12 @@
 
         .btn-download {
             background: var(--btn-download);
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
         }
 
         .btn-key {
             background: var(--btn-key);
-            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.3);
         }
 
         /* Thông tin liên hệ phía dưới */
@@ -168,9 +168,10 @@
             text-align: center;
             margin-top: 40px;
             padding: 20px;
-            border-top: 1px solid rgba(0,0,0,0.05);
+            border-top: 1px solid rgba(255,255,255,0.05);
             width: 100%;
             max-width: 600px;
+            color: var(--text-light);
         }
 
         .footer-info p {
@@ -180,7 +181,7 @@
         }
         
         .tele-link {
-            color: #0088cc;
+            color: #007bff;
             text-decoration: none;
             font-weight: bold;
         }
@@ -494,7 +495,7 @@
                 y: Math.random() * canvas.height,
                 r: Math.random() * 2 + 1,
                 speed: Math.random() * 0.5 + 0.3,
-                opacity: Math.random() * 0.4 + 0.2
+                opacity: Math.random() * 0.5 + 0.2
             });
         }
 
@@ -505,8 +506,7 @@
                 const f = flakes[i];
                 ctx.beginPath();
                 ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
-                // Đổi thành màu xanh dương nhạt (rgba(0, 150, 255)) để tạo hiệu ứng tuyết/mưa bong bóng nổi bật trên nền trắng
-                ctx.fillStyle = `rgba(0, 123, 255, ${f.opacity})`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
                 ctx.fill();
             }
             moveSnow();
