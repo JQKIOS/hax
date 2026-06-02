@@ -3,488 +3,481 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> JQK IOS - SHOP GAME </title>
+    <title>JQK IOS - SHOP PREMIUM</title>
     <style>
-        /* Định nghĩa biến góc xoay để làm mượt chuyển động màu */
-        @property --angle {
-            syntax: '<angle>';
-            initial-value: 0deg;
-            inherits: false;
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #1f2833;
+            --text-color: #c5a059; /* Màu vàng Gold sang trọng cho Shop */
+            --text-light: #ffffff;
+            --accent-cyan: #461bef;
+            --accent-green: #02f290;
+            --btn-download: linear-gradient(135deg, #007bff, #00d2ff);
+            --btn-key: linear-gradient(135deg, #ff007f, #ff7b00);
         }
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: #0d0d0d; /* Nền đen đậm chất gaming */
-            color: white; 
+            background-color: var(--bg-color);
+            color: var(--text-light);
             margin: 0;
             padding: 20px;
-            overflow-x: hidden; 
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Canvas tuyết rơi nền */
+        /* Nền tuyết rơi nhẹ nhàng phía sau */
         #snow-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; 
-            pointer-events: none; 
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
-        /* TIÊU ĐỀ CHÍNH */
-        h1 {
+        /* Tiêu đề chính dạng Shop */
+        header {
             text-align: center;
-            font-size: 2.5em;
-            font-weight: 900;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            font-weight: 800;
             letter-spacing: 2px;
-            margin-bottom: 5px;
-            animation: rainbowText 4s infinite linear, pulse 2s infinite ease-in-out;
+            margin: 0;
+            background: linear-gradient(to right, #fff, var(--text-color), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(197, 160, 89, 0.2);
         }
 
-        .shop-subtitle {
-            text-align: center;
+        header p {
             color: #888;
-            font-size: 0.9em;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-top: 5px;
+            font-size: 0.95em;
         }
 
-        @keyframes rainbowText {
-            0% { color: #ff00ff; text-shadow: 0 0 15px #ff00ff; }
-            33% { color: #00ffcc; text-shadow: 0 0 15px #00ffcc; }
-            66% { color: #ffff00; text-shadow: 0 0 15px #ffff00; }
-            100% { color: #ff00ff; text-shadow: 0 0 15px #ff00ff; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-
-        /* KHU VỰC DANH MỤC GAME */
+        /* Khu vực danh mục */
         .category-section {
+            width: 100%;
+            max-width: 1200px;
             margin-bottom: 40px;
         }
 
         .category-title {
             font-size: 1.4em;
             font-weight: bold;
-            color: #00ffcc;
-            border-left: 4px solid #ff00ff;
+            color: var(--text-color);
+            border-left: 4px solid var(--text-color);
             padding-left: 10px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* LƯỚI SẢN PHẨM (GRID SHOP) */
-        .shop-grid {
+        /* Bố cục lưới chứa các thẻ sản phẩm giống Shop */
+        .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
 
-        /* THẺ SẢN PHẨM (ITEM CARD) */
+        /* Thẻ sản phẩm (Card Shop) */
         .product-card {
-            background: rgba(20, 20, 20, 0.85); 
-            border: 2px solid transparent; 
-            border-radius: 12px;
-            padding: 16px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
             position: relative;
-            z-index: 1;
-            backdrop-filter: blur(5px);
-            
-            border-image: conic-gradient(from var(--angle), #ff00ff, #00ffcc, #ffff00, #ff00ff) 1;
-            animation: rotateAngle 4s infinite linear, boxGlow 4s infinite alternate ease-in-out;
+            overflow: hidden;
         }
 
-        @keyframes rotateAngle {
-            to { --angle: 360deg; }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(197, 160, 89, 0.3);
+            box-shadow: 0 15px 30px rgba(197, 160, 89, 0.1);
         }
 
-        @keyframes boxGlow {
-            0% { box-shadow: 0 0 10px rgba(255, 0, 255, 0.15); }
-            100% { box-shadow: 0 0 10px rgba(0, 255, 204, 0.15); }
-        }
-
-        /* CHI TIẾT TRONG THẺ */
-        .badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #00ffcc;
-            color: #000;
-            font-size: 0.75em;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
-        }
-
+        /* Tên sản phẩm */
         .product-name {
-            font-size: 1.2em;
+            font-size: 1.25em;
             font-weight: bold;
-            color: #ffffff;
-            margin: 5px 0 10px 0;
+            margin: 0 0 10px 0;
+            color: var(--text-light);
         }
 
-        .product-features {
-            font-size: 0.85em;
-            color: #aaa;
+        /* Nhãn trạng thái (Status tag) */
+        .product-status {
+            display: inline-block;
+            font-size: 0.75em;
+            padding: 3px 8px;
+            border-radius: 5px;
+            background: rgba(2, 242, 144, 0.1);
+            color: var(--accent-green);
+            font-weight: bold;
             margin-bottom: 20px;
-            line-height: 1.4;
-            min-height: 40px; /* Giữ khoảng cách đều giữa các thẻ */
+            align-self: flex-start;
         }
 
-        /* NÚT HÀNH ĐỘNG DẠNG SHOP */
-        .btn-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            border-top: 1px dashed #333;
-            padding-top: 15px;
+        /* Khu vực nút bấm trong thẻ */
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .shop-btn {
+        .btn {
             display: block;
-            padding: 10px;
             text-align: center;
-            border-radius: 6px;
-            font-weight: bold;
-            font-size: 0.85em;
+            padding: 12px;
+            border-radius: 8px;
             text-decoration: none;
-            transition: all 0.2s;
-            border: none;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #fff;
+            transition: all 0.2s ease;
             cursor: pointer;
         }
 
-        /* Nút Tải */
+        .btn:hover {
+            filter: brightness(1.15);
+            transform: scale(1.01);
+        }
+
         .btn-download {
-            background: #222;
-            color: #fff;
-            border: 1px solid #444;
+            background: var(--btn-download);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
         }
 
-        .btn-download:hover {
-            background: #333;
-            border-color: #00ffcc;
-            color: #00ffcc;
+        .btn-key {
+            background: var(--btn-key);
+            box-shadow: 0 4px 12px rgba(255, 0, 127, 0.3);
         }
 
-        /* Nút Lấy Key / Mua */
-        .btn-buy {
-            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffcc);
-            background-size: 300% 300%;
-            color: #ffffff;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-            animation: gradientMove 4s infinite linear;
-        }
-
-        .btn-buy:hover {
-            filter: brightness(1.2);
-            transform: translateY(-2px);
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* THÔNG TIN LIÊN HỆ THỦ CÔNG */
-        .contact-container {
-            max-width: 600px;
-            margin: 50px auto 20px auto;
-            background: rgba(20, 20, 20, 0.9);
-            border: 1px solid #333;
-            padding: 20px;
-            border-radius: 12px;
+        /* Thông tin liên hệ phía dưới */
+        .footer-info {
             text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            width: 100%;
+            max-width: 600px;
         }
 
-        .contact-tele {
-            font-size: 1.1em;
-            font-weight: bold;
+        .footer-info p {
             margin: 10px 0;
-            animation: rainbowText 4s infinite linear;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        
+        .tele-link {
+            color: #0088cc;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .bank-info {
+            color: var(--text-color);
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <!-- Nền tuyết rơi chuyển động -->
     <canvas id="snow-canvas"></canvas>
 
-    <h1> 𝑱𝑸𝑲 𝑰𝑶𝑺 </h1>
-    <div class="shop-subtitle">Hệ Thống Phân Phối Key Mod Game iOS Chuyên Nghiệp</div>
+    <header>
+        <h1>𝑱𝑸𝑲 𝑰𝑶𝑺 𝑺𝑯𝑶𝑷</h1>
+        <p>Hệ thống cung cấp Mod Game iOS chất lượng cao</p>
+    </header>
 
-    <!-- ================= CATEGORY: PUBG MOBILE ================= -->
+    <!-- ================= DANH MỤC: PUBG MOBILE ================= -->
     <div class="category-section">
-        <div class="category-title">📂 MOD PUBG MOBILE</div>
-        <div class="shop-grid">
+        <div class="category-title">📂 HACK PUBG MOBILE</div>
+        <div class="products-grid">
             
+            <!-- Item 1 -->
             <div class="product-card">
-                <span class="badge">Ổn định</span>
-                <div class="product-name">DRACULA PRO</div>
-                <div class="product-features">Bypass Anticheat, Hiện khung, Tâm ảo, Giảm giật vip.</div>
-                <div class="btn-group">
-                    <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Ffvfzxzyecxkowpxakgew.supabase.co%2Ffunctions%2Fv1%2Fplist-manifest%3Fapp_id%3D591e67dc-3ef1-4a41-b2e6-0461b84f12d7" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/sazuame" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">DRACULA PRO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="itms-services://?action=download-manifest&url=https%3A%2F%2Ffvfzxzyecxkowpxakgew.supabase.co%2Ffunctions%2Fv1%2Fplist-manifest%3Fapp_id%3D591e67dc-3ef1-4a41-b2e6-0461b84f12d7" class="btn btn-download">TẢI DRACULA PRO</a>
+                    <a href="https://traffic68.com/vuot-link/sazuame" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 2 -->
             <div class="product-card">
-                <span class="badge">Hot</span>
-                <div class="product-name">LUXURY PUBG</div>
-                <div class="product-features">Menu VIP đầy đủ tính năng, an toàn cho tài khoản chính.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/sim8dk" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/n89wgb7" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">LUXURY PUBG</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/sim8dk" class="btn btn-download">TẢI LUXURY PUBG</a>
+                    <a href="https://traffic68.com/vuot-link/n89wgb7" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 3 -->
             <div class="product-card">
-                <span class="badge">Mượt</span>
-                <div class="product-name">TIMO</div>
-                <div class="product-features">Bản Hack tối ưu dung lượng, không gây nóng máy.</div>
-                <div class="btn-group">
-                    <a href="https://ipa.authtool.app/api/install/6a100bf5c0c6d194eaf3171a" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/8srn654" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">TIMO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipa.authtool.app/api/install/6a100bf5c0c6d194eaf3171a" class="btn btn-download">TẢI TIMO</a>
+                    <a href="https://traffic68.com/vuot-link/8srn654" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 4 -->
             <div class="product-card">
-                <span class="badge">Cập Nhật</span>
-                <div class="product-name">DOLPHIN</div>
-                <div class="product-features">Hỗ trợ ngắm bắn siêu chuẩn, nhìn xuyên tường.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/fu7dic" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/v22sxyd" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">DOLPHIN</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/fu7dic" class="btn btn-download">TẢI DOLPHIN</a>
+                    <a href="https://traffic68.com/vuot-link/v22sxyd" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 5 -->
             <div class="product-card">
-                <span class="badge">Ổn định</span>
-                <div class="product-name">DUCK-IOS</div>
-                <div class="product-features">Link Google Drive tốc độ cao, cài đặt dễ dàng.</div>
-                <div class="btn-group">
-                    <a href="https://drive.google.com/drive/folders/1I-imzFYwjYGbLQR0IjeY4R2q3tuFdXiF?usp=drive_link" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/622948v" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">DUCK-IOS</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://drive.google.com/drive/folders/1I-imzFYwjYGbLQR0IjeY4R2q3tuFdXiF?usp=drive_link" class="btn btn-download">TẢI DUCK-IOS</a>
+                    <a href="https://traffic68.com/vuot-link/622948v" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 6 -->
             <div class="product-card">
-                <span class="badge">New</span>
-                <div class="product-name">RAVEN</div>
-                <div class="product-features">Bản Mod Raven đỉnh cao công nghệ Anticheat mới.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/2uq2hdusp=drive_link" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/dcyisxu" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">RAVEN</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/2uq2hdusp=drive_link" class="btn btn-download">TẢI RAVEN</a>
+                    <a href="https://traffic68.com/vuot-link/dcyisxu" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 7 -->
             <div class="product-card">
-                <span class="badge">Vip</span>
-                <div class="product-name">ZORO PUBG</div>
-                <div class="product-features">Bản hack huyền thoại hỗ trợ leo rank thách đấu cực ngon.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/5bi0vr" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/zbp9wfn" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">ZORO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/5bi0vr" class="btn btn-download">TẢI ZORO</a>
+                    <a href="https://traffic68.com/vuot-link/zbp9wfn" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 8 -->
             <div class="product-card">
-                <span class="badge">iOS</span>
-                <div class="product-name">KONG IOS</div>
-                <div class="product-features">Giao diện đẹp mắt, dễ bật tắt tính năng ngay trong trận.</div>
-                <div class="btn-group">
-                    <a href="https://transfer.it/t/AQDHL9wHUBAR" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/2xnvdwn" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">KONG IOS</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://transfer.it/t/AQDHL9wHUBAR" class="btn btn-download">TẢI KONG IOS</a>
+                    <a href="https://traffic68.com/vuot-link/2xnvdwn" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 9 -->
             <div class="product-card">
-                <span class="badge">Vip</span>
-                <div class="product-name">ZERO IPA</div>
-                <div class="product-features">Hỗ trợ cài đặt trực tiếp qua Cloud App Install nhanh chóng.</div>
-                <div class="btn-group">
-                    <a href="https://chaptodocquyen.appinstall.cloud/VN.ipa" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/3ikvu9t" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">ZERO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://chaptodocquyen.appinstall.cloud/VN.ipa" class="btn btn-download">TẢI ZERO</a>
+                    <a href="https://traffic68.com/vuot-link/3ikvu9t" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
+            <!-- Item 10 -->
             <div class="product-card">
-                <span class="badge">TIPA</span>
-                <div class="product-name">TIPA ZORO</div>
-                <div class="product-features">Định dạng file .tipa cài đặt qua TrollStore siêu mượt.</div>
-                <div class="btn-group">
-                    <a href="https://ipa.xumod.vn/uploads/ZORO_VIPER_PUBG__20260601_060059_136932.tipa" class="shop-btn btn-download">TẢI TIPA</a>
-                    <a href="https://traffic68.com/vuot-link/zegg9jt" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">TIPA ZORO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipa.xumod.vn/uploads/ZORO_VIPER_PUBG__20260601_060059_136932.tipa" class="btn btn-download">TẢI TIPA ZORO</a>
+                    <a href="https://traffic68.com/vuot-link/zegg9jt" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- ================= CATEGORY: LIÊN QUÂN ================= -->
+    <!-- ================= DANH MỤC: LIÊN QUÂN ================= -->
     <div class="category-section">
-        <div class="category-title">📂 MOD LIÊN QUÂN MOBILE</div>
-        <div class="shop-grid">
+        <div class="category-title">📂 HACK LIÊN QUÂN MẠNG</div>
+        <div class="products-grid">
             
             <div class="product-card">
-                <span class="badge">Cam Xa</span>
-                <div class="product-name">MENU CHẤP TỐ</div>
-                <div class="product-features">Hack map toàn bản đồ, hiện hồi chiêu địch, camera siêu xa.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/wfv4bi" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/dwy2g3p" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">MENU CHẤP TỐ</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/wfv4bi" class="btn btn-download">TẢI MENU CHẤP TỐ</a>
+                    <a href="https://traffic68.com/vuot-link/dwy2g3p" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
             <div class="product-card">
-                <span class="badge">Auto Combo</span>
-                <div class="product-name">MENU MÚA FLO</div>
-                <div class="product-features">Hỗ trợ tự động nhặt hoa, combo Florentino siêu mượt mà.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/w4avo1" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/dwy2g3p" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">MENU MÚA FLO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/w4avo1" class="btn btn-download">TẢI MENU MÚA FLO</a>
+                    <a href="https://traffic68.com/vuot-link/dwy2g3p" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- ================= CATEGORY: CROSSFIRE LEGENDS ================= -->
+    <!-- ================= DANH MỤC: CFL ================= -->
     <div class="category-section">
-        <div class="category-title">📂 MOD CROSSFIRE LEGENDS (CFL)</div>
-        <div class="shop-grid">
+        <div class="category-title">📂 HACK CFL (CROSSFIRE LEGENDS)</div>
+        <div class="products-grid">
             
             <div class="product-card">
-                <span class="badge">Aimbot</span>
-                <div class="product-name">ZORO CFL</div>
-                <div class="product-features">Tự động ngắm đầu (Aimbot Headshot), Nhìn xuyên tường.</div>
-                <div class="btn-group">
-                    <a href="https://transfer.it/t/I0w7vx5D1JZT" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/f744t46" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">ZORO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://transfer.it/t/I0w7vx5D1JZT" class="btn btn-download">TẢI ZORO</a>
+                    <a href="https://traffic68.com/vuot-link/f744t46" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
             <div class="product-card">
-                <span class="badge">Wall</span>
-                <div class="product-name">RAVEN CFL</div>
-                <div class="product-features">Hiện vị trí kẻ địch, hiển thị lượng máu và khoảng cách.</div>
-                <div class="btn-group">
-                    <a href="https://transfer.it/t/2EYXPPp1lTgR" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/x7m9xjt" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">RAVEN</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://transfer.it/t/2EYXPPp1lTgR" class="btn btn-download">TẢI REVEN</a>
+                    <a href="https://traffic68.com/vuot-link/x7m9xjt" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
             <div class="product-card">
-                <span class="badge">Vip</span>
-                <div class="product-name">LUXURY CFL</div>
-                <div class="product-features">Bản mod Luxury cao cấp tích hợp nhiều chế độ bá đạo.</div>
-                <div class="btn-group">
-                    <a href="https://www.mediafire.com/file/ocmevzti3dzacuz/Crossfire-+Legends_1.0.13_1779095686.ipa/file" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/sp6nuwv" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">LUXURY</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://www.mediafire.com/file/ocmevzti3dzacuz/Crossfire-+Legends_1.0.13_1779095686.ipa/file" class="btn btn-download">TẢI CFL LUXURY</a>
+                    <a href="https://traffic68.com/vuot-link/sp6nuwv" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- ================= CATEGORY: ZING SPEED ================= -->
+    <!-- ================= DANH MỤC: KHÁC ================= -->
     <div class="category-section">
-        <div class="category-title">📂 MOD ZING SPEED MOBILE</div>
-        <div class="shop-grid">
+        <div class="category-title">📂 HACK 8BALL & DELTA & ZINGSPEED</div>
+        <div class="products-grid">
             
             <div class="product-card">
-                <span class="badge">Đua Xe</span>
-                <div class="product-name">ZING SPEED ZORO</div>
-                <div class="product-features">Hỗ trợ mini-map, góc nhìn rộng và tối ưu tốc độ xe đua.</div>
-                <div class="btn-group">
-                    <a href="https://ipa.xumod.vn/uploads/ZSM_ZORO_20260326_223518_295fb4.ipa" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/peiy8ev" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">MENU DS GAMING (8BALL)</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/4oe0kp" class="btn btn-download">TẢI MENU DS GAMING</a>
+                    <a href="https://traffic68.com/vuot-link/x8b3twx" class="btn btn-key">LẤY KEY FREE</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div>
+                    <div class="product-name">DELTA DRAGON</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipas.cc/sv0q3f" class="btn btn-download">TẢI DELTA DRAGON</a>
+                    <a href="https://traffic68.com/vuot-link/g2zanus" class="btn btn-key">LẤY KEY FREE</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div>
+                    <div class="product-name">ZING SPEED ZORO</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipa.xumod.vn/uploads/ZSM_ZORO_20260326_223518_295fb4.ipa" class="btn btn-download">TẢI ZING SPEED ZORO</a>
+                    <a href="https://traffic68.com/vuot-link/peiy8ev" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- ================= CATEGORY: FREE FIRE ================= -->
+    <!-- ================= DANH MỤC: FREE FIRE ================= -->
     <div class="category-section">
-        <div class="category-title">📂 MOD FREE FIRE</div>
-        <div class="shop-grid">
+        <div class="category-title">📂 HACK FREE FIRE</div>
+        <div class="products-grid">
             
             <div class="product-card">
-                <span class="badge">FF MAX</span>
-                <div class="product-name">LUXURY FF MAX</div>
-                <div class="product-features">Định dạng .tipa cao cấp, hỗ trợ ngắm và ghim tâm đầu tự động.</div>
-                <div class="btn-group">
-                    <a href="https://ipa.xumod.vn/uploads/FFMExt_20260409_102523_cb8232.tipa" class="shop-btn btn-download">TẢI TIPA</a>
-                    <a href="https://traffic68.com/vuot-link/jhbke7i" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">TIPA LUXURY FF MAX</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipa.xumod.vn/uploads/FFMExt_20260409_102523_cb8232.tipa" class="btn btn-download">TẢI TIPA LUXURY FF MAX</a>
+                    <a href="https://traffic68.com/vuot-link/jhbke7i" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
             <div class="product-card">
-                <span class="badge">FF Thường</span>
-                <div class="product-name">LUXURY FF THƯỜNG</div>
-                <div class="product-features">Bản hack tối ưu cho Free Fire bản thường, Antiban an toàn.</div>
-                <div class="btn-group">
-                    <a href="https://ipa.xumod.vn/uploads/FFExt_20260409_102227_055683.tipa" class="shop-btn btn-download">TẢI TIPA</a>
-                    <a href="https://traffic68.com/vuot-link/ieu4ins" class="shop-btn btn-buy">LẤY KEY</a>
+                <div>
+                    <div class="product-name">TIPA LUXURY FF TH</div>
+                    <div class="product-status">● Đang hoạt động</div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://ipa.xumod.vn/uploads/FFExt_20260409_102227_055683.tipa" class="btn btn-download">TẢI TIPA LUXURY FF TH</a>
+                    <a href="https://traffic68.com/vuot-link/ieu4ins" class="btn btn-key">LẤY KEY FREE</a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- ================= CATEGORY: 8BALL POOL ================= -->
-    <div class="category-section">
-        <div class="category-title">📂 MOD 8BALL POOL</div>
-        <div class="shop-grid">
-            
-            <div class="product-card">
-                <span class="badge">Đường Kẻ</span>
-                <div class="product-name">MENU DS GAMING</div>
-                <div class="product-features">Kéo dài đường kẻ hướng bóng chính xác 100%, dễ ăn bida.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/4oe0kp" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/x8b3twx" class="shop-btn btn-buy">LẤY KEY</a>
-                </div>
-            </div>
-
-        </div>
+    <!-- FOOTER SHOP -->
+    <div class="footer-info">
+        <p>💬 Mua Key VIP Liên Hệ Telegram: <a href="https://t.me/JQK_07" class="tele-link" target="_blank">@JQK_07</a></p>
+        <p>☕ Ủng Hộ Admin: <span class="bank-info">8857266143 (BIDV)</span></p>
     </div>
 
-    <!-- ================= CATEGORY: ROBLOX ================= -->
-    <div class="category-section">
-        <div class="category-title">📂 EXECUTOR ROBLOX</div>
-        <div class="shop-grid">
-            
-            <div class="product-card">
-                <span class="badge">Script</span>
-                <div class="product-name">DELTA DRAGON</div>
-                <div class="product-features">Trình chạy Script Roblox mượt mà cho các thiết bị iOS.</div>
-                <div class="btn-group">
-                    <a href="https://ipas.cc/sv0q3f" class="shop-btn btn-download">TẢI IPA</a>
-                    <a href="https://traffic68.com/vuot-link/g2zanus" class="shop-btn btn-buy">LẤY KEY</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- THÔNG TIN TÀI KHOẢN / LIÊN HỆ -->
-    <div class="contact-container">
-        <div class="contact-tele">Mua Key VIP Liên Hệ Tele: @JQK_07</div>
-        <div class="contact-tele" style="font-size: 1em; color: #ffff00;">Ủng Hộ Admin: 8857266143 (BIDV)</div>
-    </div>
-
-    <!-- Giữ nguyên JS hiệu ứng tuyết rơi của bạn -->
+    <!-- HIỆU ỨNG TUYẾT RƠI TINH TẾ -->
     <script>
         const canvas = document.getElementById('snow-canvas');
         const ctx = canvas.getContext('2d');
@@ -496,33 +489,30 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        const neonColors = ['#ff00ff', '#00ffcc', '#ffff00', '#00ffff', '#ff3366'];
-        const numFlakes = 80; 
+        const numFlakes = 60; 
         const flakes = [];
 
         for (let i = 0; i < numFlakes; i++) {
             flakes.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                r: Math.random() * 3 + 1,
-                d: Math.random() * numFlakes,
-                speed: Math.random() * 1 + 0.5,
-                color: neonColors[Math.floor(Math.random() * neonColors.length)]
+                r: Math.random() * 2 + 1,
+                speed: Math.random() * 0.5 + 0.3,
+                opacity: Math.random() * 0.5 + 0.2
             });
         }
 
         function drawSnow() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            
             for (let i = 0; i < numFlakes; i++) {
                 const f = flakes[i];
                 ctx.beginPath();
                 ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2, true);
-                ctx.shadowBlur = 4;
-                ctx.shadowColor = f.color;
-                ctx.fillStyle = f.color;
+                ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
                 ctx.fill();
             }
-            ctx.shadowBlur = 0;
             moveSnow();
         }
 
@@ -530,17 +520,11 @@
             for (let i = 0; i < numFlakes; i++) {
                 const f = flakes[i];
                 f.y += f.speed; 
-                f.x += Math.sin(f.y / 30) * 0.5; 
+                f.x += Math.sin(f.y / 30) * 0.3; 
 
                 if (f.y > canvas.height) {
-                    flakes[i] = {
-                        x: Math.random() * canvas.width,
-                        y: 0,
-                        r: f.r,
-                        d: f.d,
-                        speed: f.speed,
-                        color: neonColors[Math.floor(Math.random() * neonColors.length)]
-                    };
+                    flakes[i].y = 0;
+                    flakes[i].x = Math.random() * canvas.width;
                 }
             }
         }
