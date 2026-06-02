@@ -3,107 +3,273 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XUMOD - IPA Store</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>XUMOD - App Store</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F4F4F8; /* Nền xám nhạt như giao diện iOS */
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Khung container giả lập chiều rộng mobile hoặc hiển thị đẹp trên PC */
+        .wrapper {
+            width: 100%;
+            max-width: 600px;
+            background-color: #F4F4F8;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* Header thanh tiêu đề app trên cùng */
+        .app-header {
+            background: #fff;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #E5E5EA;
+        }
+
+        .app-header img {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-info h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .header-info p {
+            margin: 2px 0 0 0;
+            font-size: 13px;
+            color: #8E8E93;
+        }
+
+        /* Khối danh mục nhóm ứng dụng */
+        .category-box {
+            background: #fff;
+            margin: 16px;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #5856D6; /* Màu chữ xanh tím đặc trưng trong ảnh */
+            text-transform: capitalize;
+        }
+
+        .apps-count {
+            font-size: 13px;
+            color: #8E8E93;
+        }
+
+        /* Danh sách và hàng ứng dụng */
+        .app-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid #E5E5EA;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: inherit;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .app-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Khi được chọn/click hoặc hover sẽ có viền xanh dương như ảnh mục DELTA IOS VIP */
+        .app-item:hover, .app-item:focus {
+            border-color: #007AFF;
+            background-color: #F2F8FF;
+            outline: none;
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            object-fit: cover;
+            margin-right: 15px;
+            background-color: #eee;
+        }
+
+        .app-details {
+            flex: 1;
+        }
+
+        .app-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 2px;
+        }
+
+        .app-sub {
+            font-size: 13px;
+            color: #8E8E93;
+        }
+
+        /* Khu vực nút chức năng phụ (Lấy Key/Liên hệ) nằm dưới chân trang */
+        .footer-actions {
+            padding: 10px 16px;
+            text-align: center;
+        }
+        
+        .footer-btn {
+            display: inline-block;
+            background-color: #007AFF;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .footer-btn.key-btn {
+            background-color: #34C759;
+        }
+
+        .contact-info {
+            font-size: 13px;
+            color: #8E8E93;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <header class="main-header">
-            <a href="#" class="header-left">
-                <img src="https://via.placeholder.com/40" alt="XUMOD Logo" class="brand-logo">
-                <div class="brand-info">
-                    <h1 class="brand-name">XUMOD</h1>
-                    <span class="brand-sub">App Store</span>
-                </div>
-            </a>
-        </header>
+<div class="wrapper">
 
-        <section class="category-section">
-            <div class="category-header">
-                <h2 class="category-title">8 Ball Pool</h2>
-                <span class="apps-count">1 apps</span>
-            </div>
-            <div class="apps-list">
-                <a href="https://link-tai-game-8ball.com" class="app-item">
-                    <img src="https://via.placeholder.com/60" alt="8 ball pool" class="app-icon">
-                    <div class="app-details">
-                        <h3 class="app-name">8 ball pool</h3>
-                        <p class="app-slug">8-ball-pool</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header">
-                <h2 class="category-title">CFM IOS</h2>
-                <span class="apps-count">3 apps</span>
-            </div>
-            <div class="apps-list">
-                <a href="#" class="app-item">
-                    <img src="https://via.placeholder.com/60" alt="CFL ZORO" class="app-icon">
-                    <div class="app-details">
-                        <h3 class="app-name">CFL ZORO</h3>
-                        <p class="app-slug">cfl-zoro</p>
-                    </div>
-                </a>
-                <a href="#" class="app-item">
-                    <img src="https://via.placeholder.com/60" alt="CFL RAVEN" class="app-icon">
-                    <div class="app-details">
-                        <h3 class="app-name">CFL RAVEN</h3>
-                        <p class="app-slug">cfm-raven</p>
-                    </div>
-                </a>
-                <a href="#" class="app-item">
-                    <img src="https://via.placeholder.com/60" alt="CFM LUXURY IOS" class="app-icon">
-                    <div class="app-details">
-                        <h3 class="app-name">CFM LUXURY IOS</h3>
-                        <p class="app-slug">cfm-luxury-ios</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section class="category-section">
-            <div class="category-header">
-                <h2 class="category-title">delta force</h2>
-                <span class="apps-count">3 apps</span>
-            </div>
-            <div class="apps-list">
-                <a href="#" class="app-item">
-                    <img src="https://via.placeholder.com/60" alt="DELTA IOS VIP" class="app-icon">
-                    <div class="app-details">
-                        <h3 class="app-name">DELTA IOS VIP</h3>
-                        <p class="app-slug">delta-ios-vip</p>
-                    </div>
-                </a>
-                <a href="#" class="app-item">
-                    <img src="https://via.placeholder.com/60" alt="delta" class="app-icon">
-                    <div class="app-details">
-                        <h3 class="app-name">delta</h3>
-                        <p class="app-slug">delta</p>
-                    </div>
-                </a>
-                <a href="#" class="app-item">
-                    <img src="https://via.placeholder.com/60" alt="delta ios" class="app-icon">
-                    <div class="app-details">
-                        <h3 class="app-name">delta ios</h3>
-                        <p class="app-slug">delta-ios</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <footer class="site-footer">
-            <a href="https://ipa.xumod.vn" class="footer-url">ipa.xumod.vn</a>
-        </footer>
-
+    <div class="app-header">
+        <img src="https://via.placeholder.com/100/b81414/ffffff?text=X" alt="XUMOD Logo">
+        <div class="header-info">
+            <h2>XUMOD</h2>
+            <p>App Store</p>
+        </div>
     </div>
+
+    <div class="category-box">
+        <div class="category-header">
+            <span class="category-title">8 Ball Pool</span>
+            <span class="apps-count">1 apps</span>
+        </div>
+        
+        <a href="https://ipas.cc/4oe0kp" class="app-item">
+            <img class="app-icon" src="https://via.placeholder.com/100/222/fff?text=8" alt="8 Ball Pool">
+            <div class="app-details">
+                <div class="app-name">8 ball pool (Menu DS Gaming)</div>
+                <div class="app-sub">8-ball-pool</div>
+            </div>
+        </a>
+        <div class="footer-actions">
+            <a href="https://traffic68.com/vuot-link/x8b3twx" class="footer-btn key-btn">Lấy Key Free</a>
+        </div>
+    </div>
+
+    <div class="category-box">
+        <div class="category-header">
+            <span class="category-title">CFM IOS</span>
+            <span class="apps-count">3 apps</span>
+        </div>
+
+        <a href="https://transfer.it/t/I0w7vx5D1JZT" class="app-item">
+            <img class="app-icon" src="https://via.placeholder.com/100/444/fff?text=Zoro" alt="CFL Zoro">
+            <div class="app-details">
+                <div class="app-name">CFL ZORO</div>
+                <div class="app-sub">cfl-zoro</div>
+            </div>
+        </a>
+        <div class="footer-actions"><a href="https://traffic68.com/vuot-link/f744t46" class="footer-btn key-btn">Key Zoro</a></div>
+
+        <a href="https://transfer.it/t/2EYXPPp1lTgR" class="app-item">
+            <img class="app-icon" src="https://via.placeholder.com/100/444/fff?text=Raven" alt="CFL Raven">
+            <div class="app-details">
+                <div class="app-name">CFL RAVEN</div>
+                <div class="app-sub">cfm-raven</div>
+            </div>
+        </a>
+        <div class="footer-actions"><a href="https://traffic68.com/vuot-link/x7m9xjt" class="footer-btn key-btn">Key Raven</a></div>
+
+        <a href="https://www.mediafire.com/file/ocmevzti3dzacuz/Crossfire-+Legends_1.0.13_1779095686.ipa/file" class="app-item">
+            <img class="app-icon" src="https://via.placeholder.com/100/444/fff?text=Luxury" alt="CFL Luxury">
+            <div class="app-details">
+                <div class="app-name">CFM LUXURY IOS</div>
+                <div class="app-sub">cfm-luxury-ios</div>
+            </div>
+        </a>
+        <div class="footer-actions"><a href="https://traffic68.com/vuot-link/sp6nuwv" class="footer-btn key-btn">Key Luxury</a></div>
+    </div>
+
+    <div class="category-box">
+        <div class="category-header">
+            <span class="category-title">delta force</span>
+            <span class="apps-count">3 apps</span>
+        </div>
+
+        <a href="https://ipas.cc/sv0q3f" class="app-item">
+            <img class="app-icon" src="https://via.placeholder.com/100/666/fff?text=VIP" alt="Delta iOS VIP">
+            <div class="app-details">
+                <div class="app-name">DELTA IOS VIP (Delta Dragon)</div>
+                <div class="app-sub">delta-ios-vip</div>
+            </div>
+        </a>
+
+        <a href="#" class="app-item">
+            <img class="app-icon" src="https://via.placeholder.com/100/666/fff?text=Δ" alt="Delta">
+            <div class="app-details">
+                <div class="app-name">delta</div>
+                <div class="app-sub">delta</div>
+            </div>
+        </a>
+
+        <a href="#" class="app-item">
+            <img class="app-icon" src="https://via.placeholder.com/100/666/fff?text=iOS" alt="Delta iOS">
+            <div class="app-details">
+                <div class="app-name">delta ios</div>
+                <div class="app-sub">delta-ios</div>
+            </div>
+        </a>
+        <div class="footer-actions">
+            <a href="https://traffic68.com/vuot-link/g2zanus" class="footer-btn key-btn">Lấy Key Free Delta</a>
+        </div>
+    </div>
+
+    <div class="contact-info" style="text-align: center; margin-top: 30px;">
+        <p><b>Mua Key VIP Liên Hệ Tele:</b> @JQK_07</p>
+        <p><b>Ủng Hộ Admin:</b> 8857266143 (BIDV)</p>
+    </div>
+
+</div>
 
 </body>
 </html>
